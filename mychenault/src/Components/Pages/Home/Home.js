@@ -52,6 +52,10 @@ const styles = (theme) => ({
     },
     header: {
         pointerEvent: "none",
+        fontWeight: "500",
+    },
+    subheader: {
+        pointerEvent: "none",
     },
 });
 
@@ -59,19 +63,37 @@ class Home extends React.Component {
     constructor() {
         super();
 
-        this.handleAboutClicked = this.handleAboutClicked.bind(this);
-        this.handleGalleriesClicked = this.handleGalleriesClicked.bind(this);
+        this.handleClick = this.handleClick.bind(this);
 
         this.state = {
             selectedIndex: 0,
         };
     }
 
-    handleAboutClicked = () => {
-        this.setState({ selectedIndex: 1 });
-    };
-    handleGalleriesClicked = () => {
-        this.setState({ selectedIndex: 0 });
+    handleClick = (event, page) => {
+        event.preventDefault();
+        let selectedIndex;
+
+        switch (page) {
+            case "galleries":
+                selectedIndex = 0;
+                break;
+            case "about":
+                selectedIndex = 1;
+                break;
+            case 2:
+                selectedIndex = 2;
+                break;
+            case 3:
+                selectedIndex = 3;
+                break;
+            case 4:
+                selectedIndex = 4;
+                break;
+            default:
+                break;
+        }
+        this.setState({ selectedIndex });
     };
 
     render() {
@@ -85,24 +107,22 @@ class Home extends React.Component {
                         <div className={classes.heroContent}>
                             <Typography
                                 className={classes.header}
-                                component="h1"
-                                variant="h1"
+                                variant="h2"
                                 align="center"
                                 color="primary"
                                 gutterBottom
                             >
-                                Study Abroad Europe
+                                Study Abroad 2017
                             </Typography>
                             <div className={classes.heroSubcontent}>
                                 <Typography
-                                    className={classes.header}
-                                    component="h2"
-                                    variant="h2"
+                                    className={classes.subheader}
+                                    variant="h4"
                                     align="center"
                                     color="textPrimary"
                                     gutterBottom
                                 >
-                                    Web Design
+                                    Web Design - Europe
                                 </Typography>
                             </div>
                             <div className={classes.heroAboutMe}>
@@ -111,7 +131,7 @@ class Home extends React.Component {
                                         variant="outlined"
                                         color="primary"
                                         size="medium"
-                                        onClick={this.handleAboutClicked}
+                                        onClick={(event) => this.handleClick(event, "about")}
                                     >
                                         Learn More About The Trip
                                     </Button>
@@ -121,7 +141,7 @@ class Home extends React.Component {
                                         variant="outlined"
                                         color="primary"
                                         size="medium"
-                                        onClick={this.handleGalleriesClicked}
+                                        onClick={(event) => this.handleClick(event, "galleries")}
                                     >
                                         Back to Galleries
                                     </Button>

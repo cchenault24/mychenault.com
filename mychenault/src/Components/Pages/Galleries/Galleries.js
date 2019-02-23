@@ -20,6 +20,14 @@ import KPMGImg from "Images/Home/KPMG.jpg";
 import SAPImg from "Images/Home/SAP.jpg";
 import LuxembourgImg from "Images/Home/Luxembourg.jpg";
 import AmsterdamImg from "Images/Home/Amsterdam.jpg";
+import IrelandGallery from "../IrelandGallery/IrelandGallery";
+import ItalyGallery from "../ItalyGallery/ItalyGallery";
+import GermanyGallery from "../GermanyGallery/GermanyGallery";
+import FranceGallery from "../FranceGallery/FranceGallery";
+import AmsterdamGallery from "../AmsterdamGallery/AmsterdamGallery";
+import LuxembourgGallery from "../LuxembourgGallery/LuxembourgGallery";
+import KPMGGallery from "../KPMGGallery/KPMGGallery";
+import SAPGallery from "../SAPGallery/SAPGallery";
 
 const styles = (theme) => ({
     layout: {
@@ -68,46 +76,106 @@ const cards = [
     { key: "8", Country: "SAP", Image: SAPImg },
 ];
 
-class Home extends React.Component {
+class Galleries extends React.Component {
+    constructor() {
+        super();
+        this.handleClick = this.handleClick.bind(this);
+
+        this.state = {
+            selectedIndex: 0,
+        };
+    }
+    handleClick = (event, country) => {
+        event.preventDefault();
+        let selectedIndex;
+
+        switch (country) {
+            case "Ireland":
+                selectedIndex = 1;
+                break;
+            case "Italy":
+                selectedIndex = 2;
+                break;
+            case "Germany":
+                selectedIndex = 3;
+                break;
+            case "France":
+                selectedIndex = 4;
+                break;
+            case "Amsterdam":
+                selectedIndex = 5;
+                break;
+            case "Luxembourg":
+                selectedIndex = 6;
+                break;
+            case "KPMG":
+                selectedIndex = 7;
+                break;
+            case "SAP":
+                selectedIndex = 8;
+                break;
+            default:
+                break;
+        }
+        this.setState({ selectedIndex });
+    };
+
     render() {
         const { classes } = this.props;
+        const { selectedIndex } = this.state;
 
         return (
             <MuiThemeProvider theme={theme}>
                 <React.Fragment>
                     <CssBaseline />
                     <div className={classNames(classes.layout, classes.cardGrid)}>
-                        <Grid container spacing={40}>
-                            {cards.map((card, index) => (
-                                <Grid item key={index} sm={6} md={4} lg={3}>
-                                    <Card className={classes.card}>
-                                        <CardMedia
-                                            className={classes.cardMedia}
-                                            image={card.Image} // eslint-disable-line max-len
-                                            title="Image title"
-                                        />
-                                        <CardContent className={classes.cardContent}>
-                                            <Typography
-                                                className={classes.cardCountry}
-                                                variant="h6"
-                                                component="h6"
-                                                align="center"
-                                            >
-                                                {card.Country}
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions className={classes.cardActions}>
-                                            <Button size="small" color="primary">
-                                                View
-                                            </Button>
-                                            <Button size="small" color="primary">
-                                                Download
-                                            </Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
-                            ))}
-                        </Grid>
+                        {selectedIndex === 0 && (
+                            <Grid container spacing={40}>
+                                {cards.map((card, index) => (
+                                    <Grid item key={index} sm={6} md={4} lg={3}>
+                                        <Card className={classes.card}>
+                                            <CardMedia
+                                                className={classes.cardMedia}
+                                                image={card.Image} // eslint-disable-line max-len
+                                                title="Image title"
+                                            />
+                                            <CardContent className={classes.cardContent}>
+                                                <Typography
+                                                    className={classes.cardCountry}
+                                                    variant="h6"
+                                                    component="h6"
+                                                    align="center"
+                                                >
+                                                    {card.Country}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions className={classes.cardActions}>
+                                                <Button
+                                                    size="small"
+                                                    color="primary"
+                                                    onClick={(event) =>
+                                                        this.handleClick(event, card.Country)
+                                                    }
+                                                >
+                                                    View
+                                                </Button>
+                                                <Button size="small" color="primary">
+                                                    Download
+                                                </Button>
+                                            </CardActions>
+                                        </Card>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        )}
+                        {selectedIndex === 1 && <IrelandGallery />}
+                        {selectedIndex === 2 && <ItalyGallery />}
+                        {selectedIndex === 3 && <GermanyGallery />}
+                        {selectedIndex === 4 && <FranceGallery />}
+                        {selectedIndex === 5 && <AmsterdamGallery />}
+                        {selectedIndex === 6 && <LuxembourgGallery />}
+                        {selectedIndex === 7 && <KPMGGallery />}
+                        {selectedIndex === 8 && <SAPGallery />}
                     </div>
                 </React.Fragment>
             </MuiThemeProvider>
@@ -115,8 +183,8 @@ class Home extends React.Component {
     }
 }
 
-Home.propTypes = {
+Galleries.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Home);
+export default withStyles(styles)(Galleries);

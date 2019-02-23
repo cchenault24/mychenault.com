@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Home from "./Home";
+import Amsterdam from "./AmsterdamGallery";
 
 it("renders without crashing", () => {
     const div = document.createElement("div");
-    ReactDOM.render(<Home />, div);
+    ReactDOM.render(<Amsterdam />, div);
     ReactDOM.unmountComponentAtNode(div);
 });
