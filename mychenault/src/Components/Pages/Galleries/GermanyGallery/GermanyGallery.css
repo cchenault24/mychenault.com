@@ -1,13 +1,13 @@
-.Home {
+.Germany {
     text-align: center;
 }
 
-.Home-logo {
-    animation: Home-logo-spin infinite 20s linear;
+.Germany-logo {
+    animation: Germany-logo-spin infinite 20s linear;
     height: 40vmin;
 }
 
-.Home-header {
+.Germany-header {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
@@ -18,11 +18,11 @@
     color: white;
 }
 
-.Home-link {
+.Germany-link {
     color: #61dafb;
 }
 
-@keyframes Home-logo-spin {
+@keyframes Germany-logo-spin {
     from {
         transform: rotate(0deg);
     }

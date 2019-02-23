@@ -6,8 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import theme from "theme";
-import Galleries from "../Galleries/Galleries";
-import About from "../About/About";
+import ContentHolder from "../ContentHolder/ContentHolder";
 
 const styles = (theme) => ({
     appBar: {
@@ -52,6 +51,10 @@ const styles = (theme) => ({
     },
     header: {
         pointerEvent: "none",
+        fontWeight: "500",
+    },
+    subheader: {
+        pointerEvent: "none",
     },
 });
 
@@ -59,24 +62,24 @@ class Home extends React.Component {
     constructor() {
         super();
 
-        this.handleAboutClicked = this.handleAboutClicked.bind(this);
-        this.handleGalleriesClicked = this.handleGalleriesClicked.bind(this);
+        this.handleSwitchPage = this.handleSwitchPage.bind(this);
 
         this.state = {
-            selectedIndex: 0,
+            currentPage: "Galleries",
+            inGallery: false,
         };
     }
 
-    handleAboutClicked = () => {
-        this.setState({ selectedIndex: 1 });
-    };
-    handleGalleriesClicked = () => {
-        this.setState({ selectedIndex: 0 });
+    handleSwitchPage = (event, pageToSwitchTo) => {
+        event.preventDefault();
+        const { currentPage } = this.state;
+        const inGallery = currentPage !== "Galleries" && currentPage !== "About" ? true : false;
+        this.setState({ currentPage: pageToSwitchTo, inGallery });
     };
 
     render() {
         const { classes } = this.props;
-        const { selectedIndex } = this.state;
+        const { currentPage } = this.state;
         return (
             <MuiThemeProvider theme={theme}>
                 <React.Fragment>
@@ -85,52 +88,46 @@ class Home extends React.Component {
                         <div className={classes.heroContent}>
                             <Typography
                                 className={classes.header}
-                                component="h1"
-                                variant="h1"
+                                variant="h2"
                                 align="center"
                                 color="primary"
                                 gutterBottom
                             >
-                                Study Abroad Europe
+                                Study Abroad 2017
                             </Typography>
                             <div className={classes.heroSubcontent}>
                                 <Typography
-                                    className={classes.header}
-                                    component="h2"
-                                    variant="h2"
+                                    className={classes.subheader}
+                                    variant="h4"
                                     align="center"
                                     color="textPrimary"
                                     gutterBottom
                                 >
-                                    Web Design
+                                    Web Design - Europe
                                 </Typography>
                             </div>
                             <div className={classes.heroAboutMe}>
-                                {selectedIndex === 0 && (
-                                    <Button
-                                        variant="outlined"
-                                        color="primary"
-                                        size="medium"
-                                        onClick={this.handleAboutClicked}
-                                    >
-                                        Learn More About The Trip
-                                    </Button>
-                                )}
-                                {selectedIndex === 1 && (
-                                    <Button
-                                        variant="outlined"
-                                        color="primary"
-                                        size="medium"
-                                        onClick={this.handleGalleriesClicked}
-                                    >
-                                        Back to Galleries
-                                    </Button>
-                                )}
+                                <Button
+                                    variant="outlined"
+                                    color="primary"
+                                    size="medium"
+                                    onClick={(event) => {
+                                        currentPage !== "Galleries"
+                                            ? this.handleSwitchPage(event, "Galleries")
+                                            : this.handleSwitchPage(event, "About");
+                                    }}
+                                >
+                                    {currentPage !== "Galleries"
+                                        ? "Back to Galleries"
+                                        : "Learn More About The Trip"}
+                                </Button>
                             </div>
                         </div>
                     </div>
-                    {selectedIndex === 0 && <Galleries />}
-                    {selectedIndex === 1 && <About />}
+                    <ContentHolder
+                        pageToShow={currentPage}
+                        handleSwitchPageCallback={this.handleSwitchPage}
+                    />
                     <footer className={classes.footer}>
                         <Typography
                             variant="caption"
@@ -149,6 +146,7 @@ class Home extends React.Component {
 
 Home.propTypes = {
     classes: PropTypes.object.isRequired,
+    homeButtonCallback: PropTypes.func,
 };
 
 export default withStyles(styles)(Home);

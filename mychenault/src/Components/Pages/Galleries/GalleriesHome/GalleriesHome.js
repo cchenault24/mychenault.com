@@ -22,19 +22,8 @@ import LuxembourgImg from "Images/Home/Luxembourg.jpg";
 import AmsterdamImg from "Images/Home/Amsterdam.jpg";
 
 const styles = (theme) => ({
-    layout: {
-        width: "auto",
-        marginLeft: theme.spacing.unit * 3,
-        marginRight: theme.spacing.unit * 3,
-        [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
-            width: 1100,
-            marginLeft: "auto",
-            marginRight: "auto",
-        },
-    },
     cardGrid: {
-        margin: "24px auto",
-        padding: `32px 28px`,
+        padding: `32px`,
     },
     card: {
         height: "100%",
@@ -68,9 +57,19 @@ const cards = [
     { key: "8", Country: "SAP", Image: SAPImg },
 ];
 
-class Home extends React.Component {
+class Galleries extends React.Component {
+    constructor() {
+        super();
+        this.handlehomeButtonCallback = this.handlehomeButtonCallback.bind(this);
+    }
+
+    handlehomeButtonCallback = (value) => {
+        const { homeButtonCallback } = this.props;
+        homeButtonCallback(value);
+    };
+
     render() {
-        const { classes } = this.props;
+        const { classes, handleSwitchPageCallback } = this.props;
 
         return (
             <MuiThemeProvider theme={theme}>
@@ -97,7 +96,13 @@ class Home extends React.Component {
                                             </Typography>
                                         </CardContent>
                                         <CardActions className={classes.cardActions}>
-                                            <Button size="small" color="primary">
+                                            <Button
+                                                size="small"
+                                                color="primary"
+                                                onClick={(event) =>
+                                                    handleSwitchPageCallback(event, card.Country)
+                                                }
+                                            >
                                                 View
                                             </Button>
                                             <Button size="small" color="primary">
@@ -115,8 +120,8 @@ class Home extends React.Component {
     }
 }
 
-Home.propTypes = {
+Galleries.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Home);
+export default withStyles(styles)(Galleries);

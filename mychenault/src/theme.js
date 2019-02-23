@@ -6,7 +6,7 @@ export default createMuiTheme({
             useNextVariants: true,
         },
         common: { black: "#000", white: "#fff" },
-        background: { paper: "#fff", default: "#fafafa" },
+        background: { paper: "#fff", default: "#fcfcfc" },
         primary: {
             light: "rgba(76, 140, 74, 1)",
             main: "rgba(27, 94, 32, 1)",

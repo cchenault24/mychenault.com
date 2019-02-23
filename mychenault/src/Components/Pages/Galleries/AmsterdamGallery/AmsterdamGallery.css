@@ -1,13 +1,13 @@
-.Home {
+.Amsterdam {
     text-align: center;
 }
 
-.Home-logo {
-    animation: Home-logo-spin infinite 20s linear;
+.Amsterdam-logo {
+    animation: Amsterdam-logo-spin infinite 20s linear;
     height: 40vmin;
 }
 
-.Home-header {
+.Amsterdam-header {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
@@ -18,11 +18,11 @@
     color: white;
 }
 
-.Home-link {
+.Amsterdam-link {
     color: #61dafb;
 }
 
-@keyframes Home-logo-spin {
+@keyframes Amsterdam-logo-spin {
     from {
         transform: rotate(0deg);
     }
