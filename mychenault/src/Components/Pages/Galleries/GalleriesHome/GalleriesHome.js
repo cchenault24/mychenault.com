@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import PhotoIcon from "@material-ui/icons/Photo";
 import theme from "theme";
 import FranceImg from "Images/Home/France.jpg";
 import GermanyImg from "Images/Home/Germany.jpg";
@@ -43,6 +44,9 @@ const styles = (theme) => ({
     },
     cardCountry: {
         pointerEvents: "none",
+    },
+    cardActionIcon: {
+        marginRight: "5px",
     },
 });
 
@@ -103,10 +107,8 @@ class Galleries extends React.Component {
                                                     handleSwitchPageCallback(event, card.Country)
                                                 }
                                             >
-                                                View
-                                            </Button>
-                                            <Button size="small" color="primary">
-                                                Download
+                                                <PhotoIcon className={classes.cardActionIcon} />
+                                                View Photos
                                             </Button>
                                         </CardActions>
                                     </Card>
